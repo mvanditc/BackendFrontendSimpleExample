@@ -1,0 +1,25 @@
+Intro:
+    The purpose of this application is to serve as a initial stepping stone in understanding how website Frontends interact with Backends.
+
+Client:
+    The client also known as the Frontend portion of the application in this example is written in HTML, CSS, and JS. Here is where we can present the information that we obtain through the Backend portion of the web application.
+
+    It is important to note that the Frontend must be running on localhost for this application to work. To run the Frontend on localhost you can either go into terminal and navigate to the "client" folder and type "python -m http.server" in the terminal (This hosts the client on localhost:8000), the other method that I personally use is a VS Code extension called "Live Preview" (This adds a button to the top right side of your VS Code IDE that will open the Frontend on localhost).
+
+Server:
+    The server also known as the Backend portion of the application is written in JS for this example. The framework that is used to run this specific Backend is ExpressJS. ExpressJS provides us with a set of tools to quickly set up Backend endpoints that can be used by the Frontend portion of the web application.
+
+    One of the main features ExpressJS provides is the ability to deliver content through network endpoints that are accessible through browsers (Google, Firefox, Microsoft Edge). ExpressJS does this by opening up a port that listens for requests made to its address.
+
+Creating a Backend Starter Guide:
+    It is best practice to store the Backend in a location different than where you store your Frontend code. As you can see in the provided code, I created a folder called "server", this is where I stored the code used for the Backend.
+
+    We will be using ExpressJS to run the Backend; to use ExpressJS, we first need to download it. We will be using a package manager to install ExpressJS, the package manager used in this project is "NPM" or "Node Package Manager". That being said, I'm going to assume you have NPM installed on your machine.
+
+    1. The first step is to open up your terminal and navigate the terminal to the folder where your Backend will be made. You can navigate to the folder using the "cd" command which stands for change directory.
+
+    2. Once you are in the correct location, you must first initialize npm (initializing npm is required to install packages using npm). This is done using the "npm init" command. This will prompt you to enter various details about your project. These details don't need to be specific for this starter guide, so for the sake of the explanation, you can just press enter for each prompt instead of entering any information.
+    
+    3. After NPM is initialized, the next step is to actually install the ExpressJS package. This is done using the "npm install express" command. If this command no longer works, you can check the ExpressJS website for the correct info (https://expressjs.com/). After typing this command, ExpressJS will be installed. By installing this package, you can now access it in script files (JavaScript, Python, etc.).
+
+    4. Now to actually use the ExpressJS package, we will create a JavaScript file, in this case I called it index.js, however the name doesn't matter. After creating the file, you can now reference the installed package using the require function; at this step I'd like you to please refer to the "index.js" file found in the "server" folder, this code is thoroughly explained and you will also be taught how to start the Backend (So that you can use it).
