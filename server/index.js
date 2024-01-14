@@ -14,6 +14,9 @@ const express = require('express');
 const app = express();
 const port = 3000; //This is the port we will be running the Backend on.
 
+// Body parser is a middleware that ExpressJS uses to process JSON bodies stored in requests made to the Backend.
+const bodyParser = require('body-parser');
+
 // Enable CORS for all routes (THIS IS VERY UNSECURE)
 // The code in app.use is basically defining the access permissions of the Backend.
 // By using these headers, we enable something called Cross-Origin Resource Sharing,
@@ -25,6 +28,9 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
+
+// Declare that the app will use the bodyParser for JSON request bodies
+app.use(bodyParser.json());
 
 // --------------------------------------------------------------------------------------
 // Example Data
@@ -44,6 +50,8 @@ let employeeIDtoSalary = {};
 Object.keys(jsonData).forEach(key => {
     employeeIDtoSalary[key] = jsonData[key].hourlyRate;
 });
+
+let storedJSON = {"details": "none"}
 
 // --------------------------------------------------------------------------------------
 // This code is used to define Endpoints we can use to obtain data from the Backend.
@@ -84,6 +92,31 @@ app.get('/get-two-names-from-id', (req, res) => {
     let employeeName2 = jsonData[employeeID2].name;
 
     res.send([employeeName1, employeeName2]);
+});
+
+// This endpoint handler is different from the rest because it handles a PUT request, instead of a GET request.
+//PUT requests are generally used when creating a new resource or replacing a resource. In this case, we are replacing
+//the data in the storedJSON variable with information given through the JSON stored in the PUT request's body.
+
+//Other request types include GET, POST, and DELETE, I recommend reading about them.
+app.put('/update-stored-json', (req, res) => {
+    const requestData = req.body;
+
+    storedJSON["details"] = "last update at " + requestData["time"]
+  
+    res.json(
+            { 
+                "message": 'Data updated successfully', 
+                "newData": storedJSON
+            }
+        );
+});
+
+// Endpoint Usage Example:
+// http://localhost:3000/get-stored-json
+app.get('/get-stored-json', (req, res) => {
+
+    res.send(storedJSON);
 });
 
 

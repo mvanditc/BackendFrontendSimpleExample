@@ -2,12 +2,16 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+const bodyParser = require('body-parser');
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
+
+app.use(bodyParser.json());
 
 const fs = require('fs');
 const rawData = fs.readFileSync('employees.json');
@@ -25,6 +29,8 @@ Object.keys(jsonData).forEach(key => {
     employeeIDtoSalary[key] = jsonData[key].hourlyRate;
 });
 
+let storedJSON = {"details": "none"}
+
 app.get('/', (req, res) => {
     res.send(jsonData);
 });
@@ -41,6 +47,24 @@ app.get('/salary', (req, res) => {
     let employeeID = req.query.id;
 
     res.send(employeeIDtoSalary[employeeID].toString());
+});
+
+app.put('/update-stored-json', (req, res) => {
+    const requestData = req.body;
+
+    storedJSON["details"] = "last update at " + requestData["time"]
+  
+    res.json(
+            { 
+                "message": 'Data updated successfully', 
+                "newData": storedJSON
+            }
+        );
+});
+
+app.get('/get-stored-json', (req, res) => {
+
+    res.send(storedJSON);
 });
 
 app.get('/get-two-names-from-id', (req, res) => {
